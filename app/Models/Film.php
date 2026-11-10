@@ -21,6 +21,6 @@ class Film extends Model
      */
     protected function coverUrl(): Attribute
     {
-        return Attribute::get(fn () => asset('storage/' . $this->cover));
+        return Attribute::get(fn () => asset('storage/'.$this->cover));
     }
 }
