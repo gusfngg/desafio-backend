@@ -165,6 +165,30 @@ php artisan db:seed
 
 ### `<?php echo 'Boa Sorte! 😄';`
 
+## Solução
+
+Objetivos principais e os 3 bônus implementados.
+
+| Página | Rota | Como foi feito |
+|---|---|---|
+| Listagem | `/` | `Film::latest('id')->paginate(12)` com `WithPagination` (bônus 1) |
+| Cadastro | `/cadastrar` | Form Object `App\Livewire\Forms\FilmForm` com atributos `#[Validate]` e mensagens em português (bônus 3); upload da capa com `WithFileUploads` no disco `public`; redireciona para o filme após salvar (bônus 2) |
+| Visualização | `/ver/{film}` | Route Model Binding: o Laravel busca o filme pelo id da URL e devolve 404 se não existir |
+
+Decisões:
+
+- **Accessor `cover_url` no model `Film`**: as views usam `$film->cover_url` em vez de montar o caminho da imagem em cada lugar.
+- **"Diretor"**: o layout original tinha esse campo, mas a tabela `films` não tem a coluna. Mantive a migration como veio e exibo a data de cadastro no lugar.
+- **Ordenação por `id`**: ordenar só por `created_at` empatava quando vários filmes eram cadastrados no mesmo segundo (os testes pegaram isso).
+
+### Testes
+
+```bash
+php artisan test
+```
+
+Cobrem o cadastro com upload, as mensagens de validação, a capa que não é imagem, a visualização (incluindo o 404) e a paginação. O `phpunit.xml` usa SQLite em memória.
+
 ## Desenvolvedores/Contribuintes
 
 <table>
