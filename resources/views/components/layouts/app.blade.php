@@ -1,33 +1,41 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="pt-BR" class="bg-zinc-950">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{{ $title ?? 'Page Title' }}</title>
+    <title>{{ isset($title) ? "{$title} · Cine" : 'Cine' }}</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
+        }
+
         ::-webkit-scrollbar {
-            width: 4px;
-            height: 4px;;
+            width: 6px;
+            height: 6px;
         }
 
         ::-webkit-scrollbar-track {
-            background: #18181b
+            background: #09090b;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #dc2626
+            background: #3f3f46;
+            border-radius: 999px;
         }
     </style>
 </head>
 
-<body class="bg-zinc-950 text-zinc-50">
+<body class="min-h-screen bg-zinc-950 text-zinc-100 antialiased selection:bg-red-600/40">
     <livewire:web.components.navbar />
-    {{ $slot }}
+
+    <main>
+        {{ $slot }}
+    </main>
 </body>
 
 </html>
